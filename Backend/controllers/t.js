@@ -3,18 +3,38 @@ const {Book} = require('../models');
 
 
   const getBooks = (req, res, next) => {
-    const books = Book.find();
-    books.then(books => {
+    const book= Book.find();
+    book.then(books => {
       res.json(books);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
     });
+    // const books = Book.find();
+    // books.then(books => {
+    //   res.json(books);
+    // });
   }
 
   const getBook = (req, res, next) => {
+
     const key = req.params.key;
-    const book = Book.find({ classes: key });
-    book.then(book => {
-      res.json(book);
-    });
+
+    // Perform the search based on the provided key
+    const book = Book.find({ classes: key }); // Searching by title (modify as needed)
+      book.then(results => {
+        res.json(results);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+      });
+    // const key = req.params.key;
+    // const book = Book.find({ classes: key });
+    // book.then(book => {
+    //   res.json(book);
+    // });
   }
 
   const createBook = (req, res, next) => {

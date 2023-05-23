@@ -1,13 +1,12 @@
 <template>
-    <div>
-      <!-- <button @click="showBooks()"><h1>Books</h1></button> -->
-  <ul>
-    <li v-for="(book, i) in books" :key="i">{{ book.title }}</li>
-  </ul>
-
-
-<!-- 
-    <table class="table table-striped">
+  <div>
+    <h2>Book List</h2>
+    <ul>
+      <li v-for="book in books" :key="book._id">
+        {{ book.title }}
+      </li>
+    </ul>
+  <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -17,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(book, i) in books" :key="i">
+        <tr v-for="book in books" :key="book._id">
           <td ></td>
           <td >{{ book.title }}</td>
           <td >{{ book.author }}</td>
@@ -26,37 +25,33 @@
           
         </tr>
       </tbody>
-    </table> -->
+    </table>
     </div>
 </template>
+
 <script>
 import axios from "axios";
+
 export default {
-  name: "showBooks",
-  data(){
+  name: "BookList",
+  data() {
     return {
       books: []
-    }
+    };
+  },
+  mounted() {
+    this.fetchBooks();
   },
   methods: {
-//     async showBooks() {
-//        await axios.get('http://localhost:5000/b/bs').then(books => {
-// this.books = books;
-//       })
-
-//     }
-  },
-mounted:{
-  showBooks() {
-  axios.get('http://localhost:5000/b/bs').then(response => {
-    console.log(response.data)
-      // this.books = response.data;
-    });
-}
-},
-}
-
-
-
-
+    fetchBooks() {
+      axios.get("http://localhost:5000/b/bs")
+        .then(response => {
+          this.books = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  }
+};
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <h1 id="main-heading">Book Tracker</h1>
+   <h1 id="main-heading">Book Tracker</h1>
   <div id="signin">
     <h3 id="signin-heading">Sign in</h3>
     <form>
